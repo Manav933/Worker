@@ -3,7 +3,7 @@ services:
     name: worker-management
     env: python
     buildCommand: "./build.sh"
-    startCommand: "gunicorn worker_management.wsgi:application"
+    startCommand: "gunicorn worker_management.wsgi:application --workers 2 --threads 2 --timeout 60 --access-logfile '-' --error-logfile '-'"
     envVars:
       - key: DATABASE_URL
         sync: false
@@ -17,8 +17,13 @@ services:
         value: worker_management.settings
       - key: STATIC_URL
         value: /static/
+      - key: ALLOWED_HOSTS
+        value: ".onrender.com"
+      - key: PYTHONUNBUFFERED
+        value: "1"
     staticPublishPath: ./staticfiles
     disk:
       name: static
       mountPath: /opt/render/project/src/static
-      sizeGB: 1 
+      sizeGB: 1
+    healthCheckPath: /admin/login/ 
