@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: worker-management
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn worker_management.wsgi:application"
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: false
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: DJANGO_SETTINGS_MODULE
+        value: worker_management.settings
+      - key: STATIC_URL
+        value: /static/
+    staticPublishPath: ./staticfiles
+    disk:
+      name: static
+      mountPath: /opt/render/project/src/static
+      sizeGB: 1 

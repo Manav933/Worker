@@ -1,0 +1,96 @@
+{% extends 'production/base.html' %}
+{% load production_extras %}
+
+{% block title %}Record Details - Worker Production Management{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h2 class="card-title mb-0">Production Record Details</h2>
+                    <div>
+                        <a href="{% url 'production:record_edit' record.pk %}" class="btn btn-warning">Edit Record</a>
+                        <a href="{% url 'production:record_list' %}" class="btn btn-secondary">Back to List</a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <!-- Basic Information -->
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h4>Basic Information</h4>
+                            <table class="table">
+                                <tr>
+                                    <th>Worker Name:</th>
+                                    <td>{{ record.name }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Machine Number:</th>
+                                    <td>{{ record.machine_no }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Date:</th>
+                                    <td>{{ record.date }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Rate Per Meter:</th>
+                                    <td>₹{{ record.rate_per_meter|floatformat:2 }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <h4>Summary</h4>
+                            <table class="table">
+                                <tr>
+                                    <th>Total Meters:</th>
+                                    <td>{{ record.total_meter|floatformat:2 }} m</td>
+                                </tr>
+                                <tr>
+                                    <th>Average Per Day:</th>
+                                    <td>{{ record.avg_meter_per_day|floatformat:2 }} m</td>
+                                </tr>
+                                <tr>
+                                    <th>Total Amount:</th>
+                                    <td>₹{{ record.total_rate|floatformat:2 }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Daily Meter Readings -->
+                    <h4>Daily Meter Readings</h4>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Day</th>
+                                    <th>Meters</th>
+                                    <th>Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for day, meter in daily_meters %}
+                                <tr>
+                                    <td>{{ day }}</td>
+                                    <td>{{ meter|floatformat:2 }} m</td>
+                                    <td>₹{{ meter|multiply:record.rate_per_meter|floatformat:2 }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Timestamps -->
+                    <div class="mt-4 text-muted">
+                        <small>
+                            Created: {{ record.created_at }}<br>
+                            Last Updated: {{ record.updated_at }}
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

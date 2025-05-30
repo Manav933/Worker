@@ -1,0 +1,249 @@
+{% extends 'production/base.html' %}
+{% load production_extras %}
+
+{% block title %}{{ title }} - Worker Production Management{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title mb-0">{{ title }}</h2>
+                </div>
+                <div class="card-body">
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        
+                        <!-- Basic Information -->
+                        <div class="row mb-4">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="{{ form.name.id_for_label }}" class="form-label">Worker Name</label>
+                                    {{ form.name }}
+                                    {% if form.name.errors %}
+                                        <div class="invalid-feedback d-block">{{ form.name.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="{{ form.machine_no.id_for_label }}" class="form-label">Machine Number</label>
+                                    {{ form.machine_no }}
+                                    {% if form.machine_no.errors %}
+                                        <div class="invalid-feedback d-block">{{ form.machine_no.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="{{ form.date.id_for_label }}" class="form-label">Date</label>
+                                    {{ form.date }}
+                                    {% if form.date.errors %}
+                                        <div class="invalid-feedback d-block">{{ form.date.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="{{ form.rate_per_meter.id_for_label }}" class="form-label">Rate Per Meter</label>
+                                    {{ form.rate_per_meter }}
+                                    {% if form.rate_per_meter.errors %}
+                                        <div class="invalid-feedback d-block">{{ form.rate_per_meter.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Daily Meter Readings -->
+                        <h4 class="mb-3">Daily Meter Readings</h4>
+                        <div class="row g-3">
+                            <!-- Days 1-8 -->
+                            <div class="col-md-4">
+                                <div class="form-group mb-3">
+                                    <label for="{{ form.day_1_meter.id_for_label }}" class="form-label">Day 1 Meter</label>
+                                    {{ form.day_1_meter }}
+                                    {% if form.day_1_meter.errors %}
+                                        <div class="invalid-feedback d-block">{{ form.day_1_meter.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-3">
+                                    <label for="{{ form.day_2_meter.id_for_label }}" class="form-label">Day 2 Meter</label>
+                                    {{ form.day_2_meter }}
+                                    {% if form.day_2_meter.errors %}
+                                        <div class="invalid-feedback d-block">{{ form.day_2_meter.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-3">
+                                    <label for="{{ form.day_3_meter.id_for_label }}" class="form-label">Day 3 Meter</label>
+                                    {{ form.day_3_meter }}
+                                    {% if form.day_3_meter.errors %}
+                                        <div class="invalid-feedback d-block">{{ form.day_3_meter.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-3">
+                                    <label for="{{ form.day_4_meter.id_for_label }}" class="form-label">Day 4 Meter</label>
+                                    {{ form.day_4_meter }}
+                                    {% if form.day_4_meter.errors %}
+                                        <div class="invalid-feedback d-block">{{ form.day_4_meter.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-3">
+                                    <label for="{{ form.day_5_meter.id_for_label }}" class="form-label">Day 5 Meter</label>
+                                    {{ form.day_5_meter }}
+                                    {% if form.day_5_meter.errors %}
+                                        <div class="invalid-feedback d-block">{{ form.day_5_meter.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-3">
+                                    <label for="{{ form.day_6_meter.id_for_label }}" class="form-label">Day 6 Meter</label>
+                                    {{ form.day_6_meter }}
+                                    {% if form.day_6_meter.errors %}
+                                        <div class="invalid-feedback d-block">{{ form.day_6_meter.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-3">
+                                    <label for="{{ form.day_7_meter.id_for_label }}" class="form-label">Day 7 Meter</label>
+                                    {{ form.day_7_meter }}
+                                    {% if form.day_7_meter.errors %}
+                                        <div class="invalid-feedback d-block">{{ form.day_7_meter.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-3">
+                                    <label for="{{ form.day_8_meter.id_for_label }}" class="form-label">Day 8 Meter</label>
+                                    {{ form.day_8_meter }}
+                                    {% if form.day_8_meter.errors %}
+                                        <div class="invalid-feedback d-block">{{ form.day_8_meter.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <!-- Days 9-15 -->
+                            <div class="col-md-4">
+                                <div class="form-group mb-3">
+                                    <label for="{{ form.day_9_meter.id_for_label }}" class="form-label">Day 9 Meter</label>
+                                    {{ form.day_9_meter }}
+                                    {% if form.day_9_meter.errors %}
+                                        <div class="invalid-feedback d-block">{{ form.day_9_meter.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-3">
+                                    <label for="{{ form.day_10_meter.id_for_label }}" class="form-label">Day 10 Meter</label>
+                                    {{ form.day_10_meter }}
+                                    {% if form.day_10_meter.errors %}
+                                        <div class="invalid-feedback d-block">{{ form.day_10_meter.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-3">
+                                    <label for="{{ form.day_11_meter.id_for_label }}" class="form-label">Day 11 Meter</label>
+                                    {{ form.day_11_meter }}
+                                    {% if form.day_11_meter.errors %}
+                                        <div class="invalid-feedback d-block">{{ form.day_11_meter.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-3">
+                                    <label for="{{ form.day_12_meter.id_for_label }}" class="form-label">Day 12 Meter</label>
+                                    {{ form.day_12_meter }}
+                                    {% if form.day_12_meter.errors %}
+                                        <div class="invalid-feedback d-block">{{ form.day_12_meter.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-3">
+                                    <label for="{{ form.day_13_meter.id_for_label }}" class="form-label">Day 13 Meter</label>
+                                    {{ form.day_13_meter }}
+                                    {% if form.day_13_meter.errors %}
+                                        <div class="invalid-feedback d-block">{{ form.day_13_meter.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-3">
+                                    <label for="{{ form.day_14_meter.id_for_label }}" class="form-label">Day 14 Meter</label>
+                                    {{ form.day_14_meter }}
+                                    {% if form.day_14_meter.errors %}
+                                        <div class="invalid-feedback d-block">{{ form.day_14_meter.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-3">
+                                    <label for="{{ form.day_15_meter.id_for_label }}" class="form-label">Day 15 Meter</label>
+                                    {{ form.day_15_meter }}
+                                    {% if form.day_15_meter.errors %}
+                                        <div class="invalid-feedback d-block">{{ form.day_15_meter.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4">
+                            <button type="submit" class="btn btn-primary">Save Record</button>
+                            <a href="{% url 'production:record_list' %}" class="btn btn-secondary">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const meterInputs = document.querySelectorAll('input[name*="meter"]');
+        const rateInput = document.querySelector('input[name="rate_per_meter"]');
+        const totalDisplay = document.createElement('div');
+        totalDisplay.className = 'alert alert-info mt-3';
+        document.querySelector('form').appendChild(totalDisplay);
+        
+        function updateTotals() {
+            let totalMeters = 0;
+            meterInputs.forEach(input => {
+                if (input.name !== 'rate_per_meter') {
+                    totalMeters += parseFloat(input.value || 0);
+                }
+            });
+            
+            const rate = parseFloat(rateInput.value || 0);
+            const totalAmount = totalMeters * rate;
+            
+            totalDisplay.innerHTML = `
+                <strong>Summary:</strong><br>
+                Total Meters: ${totalMeters.toFixed(2)} m<br>
+                Total Amount: ₹${totalAmount.toFixed(2)}
+            `;
+        }
+
+        meterInputs.forEach(input => {
+            input.addEventListener('input', updateTotals);
+        });
+        rateInput.addEventListener('input', updateTotals);
+        
+        // Initial calculation
+        updateTotals();
+    });
+</script>
+{% endblock %} 

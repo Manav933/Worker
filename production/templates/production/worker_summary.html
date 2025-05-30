@@ -1,0 +1,110 @@
+{% extends 'production/base.html' %}
+
+{% block title %}Worker Summary - Worker Production Management{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title mb-0">Worker Summary</h2>
+        </div>
+        <div class="card-body">
+            <!-- Worker Selection Form -->
+            <form method="get" class="mb-4">
+                <div class="row align-items-end">
+                    <div class="col-md-4">
+                        <label for="worker" class="form-label">Select Worker</label>
+                        <select name="worker" id="worker" class="form-select" onchange="this.form.submit()">
+                            <option value="">-- Select Worker --</option>
+                            {% for worker in workers %}
+                                <option value="{{ worker }}" {% if worker == selected_worker %}selected{% endif %}>
+                                    {{ worker }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </form>
+
+            {% if selected_worker %}
+                <!-- Monthly Statistics -->
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Total Production</h5>
+                                <p class="card-text display-6">
+                                    {{ monthly_stats.total_production|default:0|floatformat:2 }} m
+                                </p>
+                                <p class="text-muted">This Month</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Total Earnings</h5>
+                                <p class="card-text display-6">
+                                    ₹{{ monthly_stats.total_earnings|default:0|floatformat:2 }}
+                                </p>
+                                <p class="text-muted">This Month</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Average Daily Production</h5>
+                                <p class="card-text display-6">
+                                    {{ monthly_stats.avg_daily_production|default:0|floatformat:2 }} m
+                                </p>
+                                <p class="text-muted">Per Day</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Records -->
+                <h4 class="mb-3">Recent Records</h4>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Machine</th>
+                                <th>Total Meters</th>
+                                <th>Rate</th>
+                                <th>Total Amount</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for record in recent_records %}
+                            <tr>
+                                <td>{{ record.date }}</td>
+                                <td>{{ record.machine_no }}</td>
+                                <td>{{ record.total_meter|floatformat:2 }} m</td>
+                                <td>₹{{ record.rate_per_meter|floatformat:2 }}</td>
+                                <td>₹{{ record.total_rate|floatformat:2 }}</td>
+                                <td>
+                                    <a href="{% url 'production:record_detail' record.pk %}" class="btn btn-sm btn-info">View</a>
+                                    <a href="{% url 'production:record_edit' record.pk %}" class="btn btn-sm btn-warning">Edit</a>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="6" class="text-center">No records found for this worker.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="alert alert-info">
+                    Please select a worker to view their summary.
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %} 
